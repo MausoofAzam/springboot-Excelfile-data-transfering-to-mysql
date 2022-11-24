@@ -1,11 +1,12 @@
 package com.api.helper;
 
-import com.api.entity.Product;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.api.entity.Answersheet;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -30,8 +31,8 @@ public class Helper {
 
     //convert excel to list of products
 
-    public static List<Product> convertExcelToListOfProduct(InputStream is) {
-        List<Product> list = new ArrayList<>();
+    public static List<Answersheet> convertExcelToListOfProduct(InputStream is) {
+        List<Answersheet> list = new ArrayList<>();
 
         try {
 
@@ -55,24 +56,33 @@ public class Helper {
 
                 int cid = 0;
 
-                Product p = new Product();
+              Answersheet a = new Answersheet();
 
                 while (cells.hasNext()) {
                     Cell cell = cells.next();
 
                     switch (cid) {
                         case 0:
-                            p.setProductId((int) cell.getNumericCellValue());
+                           a.setQuestionId((int) cell.getNumericCellValue());
                             break;
                         case 1:
-                            p.setProductName(cell.getStringCellValue());
+                            a.setQuestion(cell.getStringCellValue());
                             break;
                         case 2:
-                            p.setProductDesc(cell.getStringCellValue());
+                           a.setOption1(cell.getStringCellValue());
                             break;
                         case 3:
-                            p.setProductPrice(cell.getNumericCellValue());
+                          a.setOption2(cell.getStringCellValue());
                             break;
+                        case 4:
+                        	a.setOption3(cell.getStringCellValue());
+                        	break;
+                        case 5:
+                        	a.setOption4(cell.getStringCellValue());
+                        	break;
+                        case 6:
+                        	a.setAnswer(cell.getStringCellValue());
+                        	break;
                         default:
                             break;
                     }
@@ -80,7 +90,7 @@ public class Helper {
 
                 }
 
-                list.add(p);
+                list.add(a);
 
 
             }
