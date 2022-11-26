@@ -16,18 +16,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.api.entity.Answersheet;
 import com.api.entity.Form;
 import com.api.helper.Helper;
 import com.api.service.ExcelService;
 
+//@RestController
 @Controller
 @CrossOrigin("*")
 public class ExcelController {
 	@Autowired
 	private ExcelService service;
-
+	
+	private int size=0;
+	
 	@GetMapping("/register")
 	public String showForm(Model model) {
 		Form form = new Form();
@@ -43,8 +47,12 @@ public class ExcelController {
 	}
 
 	@PostMapping("/register")
-	public String submitForm(@ModelAttribute("form") Form form) {
-		return "register_success";
+	public ModelAndView submitForm(@ModelAttribute("form") Form form, MultipartFile file) {
+		List<Answersheet> answer = service.getAllProducts();
+		ModelAndView view = new  ModelAndView();
+		view.addObject("answer",answer);
+		view.setViewName("register_success");
+		return view;
 	}
 	
 	
@@ -52,7 +60,7 @@ public class ExcelController {
 	public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) {
 		if (Helper.checkExcelFormat(file)) {
 			// true
-
+			
 			this.service.save(file);
 			return ResponseEntity.ok(Map.of("message", "File is uploaded and data is saved to db"));
 
