@@ -37,7 +37,7 @@
 <body>
 	<div align="center">
 		<h1>User Registration</h1>
-		<form action="#" th:action="@{/register}" method="post" th:object="${form}">
+		<form action="#" th:action="@{/register}" method="post" th:object="${form}" enctype="multipart/form-data">
 
 			<label>Practice:</label>
 			<select th:field="*{practice}">
@@ -55,7 +55,8 @@
 			
 			<br />
 			<label for ="myfile"> Select a file</label>
-			<input type="file" if="myile" name="File" /><br />
+			<input type="file" name="file" /><br />
+			<br/>
 			<hr/>
 				
 

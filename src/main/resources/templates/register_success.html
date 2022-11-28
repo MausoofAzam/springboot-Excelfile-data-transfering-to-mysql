@@ -28,8 +28,11 @@
 	<div class="container mt-3">
 		<h2>Questions Details</h2>
 		<ul th:each="a:${answer}" class="list-group mt-2">
-			
-			<li th:text="${a.questionId} + ' .Question: '+ ${a.question}" class="list-group-item"> Question: </li>
+			<strong>
+				<li th:text="${a.questionId} + ' .Question: '+ ${a.question}" class="list-group-item"> Question: </li>
+				</li>
+			</strong>
+
 			<li th:text="'1.Option: '+ ${a.option1}" class="list-group-item"> 1.Option
 				<input type="checkbox" value="V1">
 			</li>

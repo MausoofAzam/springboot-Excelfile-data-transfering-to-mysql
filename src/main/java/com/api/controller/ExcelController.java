@@ -47,9 +47,17 @@ public class ExcelController {
 	}
 
 	@PostMapping("/register")
-	public ModelAndView submitForm(@ModelAttribute("form") Form form, MultipartFile file) {
-		List<Answersheet> answer = service.getAllProducts();
+	public ModelAndView submitForm(@ModelAttribute("form") Form form, @RequestParam("file") MultipartFile file) {
 		ModelAndView view = new  ModelAndView();
+		
+		
+		if (Helper.checkExcelFormat(file)) {
+			// true
+			System.out.println("File upload....");
+			this.service.save(file);
+		}
+		List<Answersheet> answer = this.service.getAllProducts();
+		System.out.println("Total answers ::  "+answer.size());
 		view.addObject("answer",answer);
 		view.setViewName("register_success");
 		return view;
