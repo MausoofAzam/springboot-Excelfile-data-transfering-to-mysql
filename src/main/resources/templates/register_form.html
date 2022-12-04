@@ -43,7 +43,8 @@
 <body>
 	<div align="center">
 		<h1>User Registration</h1>
-		<form action="#" th:action="@{/register}" method="post" th:object="${form}" enctype="multipart/form-data">
+		<form action="#" th:action="@{/register}" method="post" th:object="${form}" enctype="multipart/form-data"> 
+		
 
 			<label>Practice:</label>
 			<select th:field="*{practice}">
@@ -67,7 +68,7 @@
 			<hr />
 
 
-			<button type="submit">save</button>
+			<button type="submit" >save</button>
 			<button type="reset">cancel</button>
 		</form>
 	</div>
@@ -140,8 +141,65 @@ excel_file.addEventListener('change', (event) => {
         excel_file.value = '';
 
     }
+    
 
 });
 
 </script>
+
+
+
+    <script>
+
+        /* Data which will be sent to server */
+        let postObj =[ {
+            questionId: 1,
+            question: "What is AJAX",
+            option1: "AJAX stands for Asynchronous JavaScript...",
+            option2: "AJAX stands for Asynchronous JavaScript...",
+            option3: "AJAX stands for Asynchronous JavaScript...",
+            option4: "AJAX stands for Asynchronous JavaScript...",
+            answer: "AJAX stands for Asynchronous JavaScript...",
+        },
+        
+        {
+            questionId: 2,
+            question: "What is AJAX",
+            option1: "AJAX stands for Asynchronous JavaScript...",
+            option2: "AJAX stands for Asynchronous JavaScript...",
+            option3: "AJAX stands for Asynchronous JavaScript...",
+            option4: "AJAX stands for Asynchronous JavaScript...",
+            answer: "AJAX stands for Asynchronous JavaScript...",
+        },
+        ]
+        // Options to be given as parameter
+        // in fetch for making requests
+        // other then GET
+
+        function createPost() {
+            console.log('Input Data  : ', JSON.stringify(postObj))
+            let options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type':
+                        'application/json;charset=utf-8'
+                },
+                body: JSON.stringify(postObj)
+            }
+            // Fake api for making post requests
+            let fetchRes = fetch(
+                //Passing Spring Boot api
+                "http://localhost:8080/register",
+                options);
+            fetchRes.then(res =>
+                res.json()).then(d => {
+                    alert('successfuly created!')
+                    console.log('On server created data!');
+                    console.log(d)
+                }).catch((error)=>{
+                    console.log('failed : '+res.status)
+                    console.log(error)
+                })
+        }
+    </script>
 </html>
