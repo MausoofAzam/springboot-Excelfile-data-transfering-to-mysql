@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.api.entity.Answersheet;
 
-public interface excelRepository extends CrudRepository<Answersheet, Integer>{
+public interface AnswersheetRepository extends CrudRepository<Answersheet, Integer>{
 
 }

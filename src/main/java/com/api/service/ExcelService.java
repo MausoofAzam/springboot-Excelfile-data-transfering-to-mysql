@@ -9,13 +9,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.api.entity.Answersheet;
 import com.api.helper.Helper;
-import com.api.repo.excelRepository;
+import com.api.repo.AnswersheetRepository;
 
 @Service
 public class ExcelService {
 
 	@Autowired
-	private excelRepository repository;
+	private AnswersheetRepository repository;
 
 	public void save(MultipartFile file) {
 

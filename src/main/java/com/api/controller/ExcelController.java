@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.api.entity.Answersheet;
 import com.api.entity.Form;
 import com.api.helper.Helper;
+import com.api.repo.AnswersheetRepository;
 import com.api.service.ExcelService;
 
 //@RestController
@@ -29,6 +30,9 @@ import com.api.service.ExcelService;
 public class ExcelController {
 	@Autowired
 	private ExcelService service;
+	
+	@Autowired
+	private AnswersheetRepository answersheetRepository;
 	
 	private int size=0;
 	
@@ -47,15 +51,21 @@ public class ExcelController {
 	}
 
 	@PostMapping("/register")
-	public ModelAndView submitForm(@ModelAttribute("form") Form form, @RequestParam("file") MultipartFile file) {
+	public ModelAndView submitForm(@ModelAttribute("form") Form form,@ModelAttribute("answersheet") Answersheet answersheet,  @RequestParam("file") MultipartFile file) {
 		ModelAndView view = new  ModelAndView();
 		
 		
-		if (Helper.checkExcelFormat(file)) {
-			// true
-			System.out.println("File upload....");
-			this.service.save(file);
-		}
+//		if (Helper.checkExcelFormat(file)) {
+//			// true
+//			System.out.println("File upload....");
+//			//this.service.save(file);
+//		}
+				
+		//answersheet
+		System.out.println(answersheet);
+		answersheet.setQuestionId(101);
+		answersheetRepository.save(answersheet);
+		
 		List<Answersheet> answer = this.service.getAllProducts();
 		System.out.println("Total answers ::  "+answer.size());
 		view.addObject("answer",answer);
